@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 // eslint-disable-next-line prettier/prettier
-import {View, Text,TextInput, Button} from 'react-native';
+import {View, Text,TextInput, Button, Image} from 'react-native';
 
 class PerhitunganBB extends React.Component {
   state = {
@@ -13,13 +13,17 @@ class PerhitunganBB extends React.Component {
     ket: null,
     Ket: null,
     ubahTinggikeMeter: null,
+    image: null,
+    hitungBMI: null,
   };
 
   hitungBMI() {
     let beratBadan = this.state.beratBadan;
     let TinggiBadan = this.state.TinggiBadan;
     let ubahTinggikeMeter = parseFloat(TinggiBadan) / 100;
-    let bmi = (parseFloat(beratBadan) / ubahTinggikeMeter) * ubahTinggikeMeter;
+    let hitungBMI =
+      parseFloat(beratBadan) / (ubahTinggikeMeter * ubahTinggikeMeter);
+    this.setState({bmi: hitungBMI});
     if (bmi < 18) {
       ket = 'Kekurangan Berat Badan';
     } else if (bmi > 18.5 && bmi <= 24.9) {
@@ -41,14 +45,10 @@ class PerhitunganBB extends React.Component {
           onChangeText={InputBB => this.setState({beratBadan: InputBB})}
           value={this.state.beratBadan}
         />
+        <Text>Kg</Text>
         <TextInput
           placeholder="Masukan Tinggi Badan"
-          style={{
-            heigh: 40,
-            marginBottom: 10,
-            width: 300,
-            backgroundColor: 'white',
-          }}
+          style={{heigh: 40}}
           onChangeText={InputTinggi =>
             this.setState({TinggiBadan: InputTinggi})
           }
